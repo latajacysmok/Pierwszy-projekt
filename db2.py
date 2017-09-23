@@ -17,13 +17,17 @@ def lengthOfInt(n):
 
 
 class Person:
-    def __init__(self, firstName, secondName, age, proffesion, mail):
+    def __init__(self, firstName, secondName, age, proffesion, mailbox):
         self.firstName = firstName
         self.secondName = secondName
         self.age = age
         self.proffesion = proffesion
-        self.mail = mail
+        self.mailbox = mailbox
         self.l = ["First Name: ", "Second Name: ", "Age: ", "Proffesion: ", "Mailbox: "]
+        self.myL = [self.firstName, self.secondName, self.age, self.proffesion, self.mailbox]
+
+    #def newM(self,m):
+        #self.m = m
 
     def getFirstName(self):
         return self.firstName
@@ -33,6 +37,12 @@ class Person:
 
     def getAge(self):
         return self.age
+
+    def getProffesion(self):
+        return self.proffesion
+
+    def getMailbox(self):
+        return self.mailbox
 
     def __lt__(self, other):
         if self.firstName < other.firstName:
@@ -45,20 +55,39 @@ class Person:
         s = ""
         x = []
         for i in self.l:
+            #print("długość self.l[{}]: ".format(i), len(i))
             x.append(len(i))
-
+        j = 0
+        while j != len(self.myL):
+            #print("długość myL[{}]: ".format(j), len(str(self.myL[j])))
+            x[j] += len(str(self.myL[j]))
+            #print(x[j])
+            j += 1
         x.sort(reverse=True)
-        print("to jest x {}:".format(self.secondName), x)
-        m = x[0]
-        print("max: ", m)
-
+        #print("x: ", x)
+        #print("to jest x {}:".format(self.secondName), x)
+        m = x[0] + 2
+        #print("m: ", m)
+        #print("max: ", m)
+        s = m * "-" + "\n"
+        l = 0
+        for k in self.myL:
+            #print("to jest myL: ", k)
+            s =  s + "|" + self.l[l] + str(k) + (((m - 2) - (len(str(k)) + len(str(self.l[l])))) * " " + "|") + "\n"
+            l += 1
+        #s = s + "|" + self.l[0] + self.firstName + (((m - 2) - (len(self.firstName) + len(self.l[0]))) * " " + "|") + "\n" + "|" + self.l[1] +  self.secondName + (((m - 2) - len(self.secondName)) * " " + "|") + "\n" + \
+            #"|" + self.l[2] + str(self.age) + (((m - 2) - len(str(self.age))) * " " + "|") + "\n" + "|" + self.l[3] + self.proffesion + (((m - 2) - len(self.proffesion)) * " " + "|")  + "\n" + "|" + self.l[4] + self.mailbox + (((m - 2) - len(self.mailbox)) * " " + "|") + "\n"
+        s = s + m * "-" + "\n"
         return s
+    #def getM(self):
+        #return self.m
+
+
 
 
 class Database:
     def __init__(self, name):
         self.name = name
-        self.newM = 0
         self.persons = []
 
     def addPerson(self, person):
@@ -66,9 +95,11 @@ class Database:
 
     def __str__(self):
         print("Welcome in " + self.name + " database!")
-        print(self.newM)
+        #print(self.m)
         for person in self.persons:
+            #print("person: ", person,"dupa")
             print(person)
+
 
         print("***********ENJOY!!!!**********")
 
@@ -91,7 +122,9 @@ class Database:
         newPersons = []
 
         for i in range(numOfPersonsInFile):
-            p = Person(lines[0 + i*5], lines[1 + i*5], int(lines[2+i*5]), lines[3+i*5], lines[4+i*5])
+            #print(i)
+            #print((lines[0 + i*6][:-1], lines[1 + i*6], lines[2+i*6], lines[3+i*6], lines[4+i*6]))
+            p = Person(lines[0 + i*6][:-1], lines[1 + i*6][:-1], lines[2+i*6][:-1], lines[3+i*6][:-1], lines[4+i*6][:-1])
             self.addPerson(p)
 
 
@@ -111,7 +144,7 @@ print(db)
 
 db.sortPersons()
 
-db.addPersonsFromFile('/home/peter/persons.txt')
+db.addPersonsFromFile('D:\Python\Projekty\Dane.txt')
 
 print(db)
 
