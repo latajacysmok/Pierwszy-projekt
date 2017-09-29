@@ -1,4 +1,5 @@
 import smtplib
+import linecache
 
 def checkMaxLength(s1, s2):
     l1 = len(s1)
@@ -148,7 +149,7 @@ class MailBox:
     def __init__(self, db):
         self.sender = 'maksymles@gmail.com'
         self.receipers = ['deamondev@gmail.com']
-        print(self.receipers)
+        #print(self.receipers)
 
     def sendMails(self):
 
@@ -156,13 +157,27 @@ class MailBox:
         This is test.
         """
 
-    gmail_user = 'xxx@gmail.com'
-    gmail_password = 'xxx'
 
-    sent_from = 'xxx@gmail.com'
-    to = ['yyy@gmail.com', 'zzz@gmail.com']
+    dostep = open("D:\Python\Projekty\Dostep.txt", "r")
+    try:
+        login = linecache.getline("xxx.txt", 1)
+        haslo = linecache.getline("xxx.txt", 2)
+        #print(login)
+        #tekst = dostep.read()
+    finally:
+        dostep.close()
+        #print(login)
+        #print(haslo)
+
+    #print(tekst)
+
+    gmail_user = login
+    gmail_password = haslo
+
+    sent_from = 'maksymles@gmail.com'
+    to = ['maksymles@gmail.com', 'deamondev@gmail.com']
     subject = 'OMG Super Important Message'
-    body = 'Pierwszy, wy\n\n - Maksym'
+    body = 'Ale jaja, wy\n\n - Maksym'
 
     email_text = """\
     From: %s
